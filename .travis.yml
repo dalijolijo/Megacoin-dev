@@ -58,6 +58,7 @@ script:
     - BEGIN_FOLD autogen; test -n "$CONFIG_SHELL" && DOCKER_EXEC "$CONFIG_SHELL" -c "./autogen.sh" || DOCKER_EXEC ./autogen.sh; END_FOLD
     - mkdir build && cd build
     - BEGIN_FOLD configure; DOCKER_EXEC ../configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false); END_FOLD
+    - BEGIN_FOLD distdir; DOCKER_EXEC make clean; END_FOLD
     - BEGIN_FOLD distdir; DOCKER_EXEC make distdir VERSION=$HOST; END_FOLD
     - cd megacoin-$HOST
     - BEGIN_FOLD configure; DOCKER_EXEC ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false); END_FOLD
